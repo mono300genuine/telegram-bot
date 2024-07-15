@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  sui-master:
+    container_name: raybot
+    build:
+      context: .
+      target: production
+    image: raybot
+    restart: always
+    command: "tini -- /bin/raybot"
+    logging:
+      driver: json-file
+      options:
+        max-size: "15m"
+        max-file: "3"
+    environment:
+      ENV: prod
+      DEBUG: no
+    env_file:
+      - .env
